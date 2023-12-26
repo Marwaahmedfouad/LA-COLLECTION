@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { NavLink } from "react-router-dom";
+
 function Products() {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
@@ -14,21 +16,19 @@ function Products() {
         setData(await response.clone().json());
         setFilter(await response.json());
         setLoading(false);
-        // console.log(data);
         console.log(filter);
       }
+    };
+      getProducts();
       return () => {
         componentMounted = false;
       };
-    };
-    getProducts();
   }, []);
 
   const Loading = () => {
     // return <>Loading........</>;
     return (
       <>
-        {" "}
         <div className="col-md-3">
           <Skeleton height={350} />
         </div>
@@ -59,26 +59,26 @@ function Products() {
           <button className="btn btn-outline-dark me-2" onClick={()=>filterProduct("electronics")} >Electronic</button>
         </div>
 
-        {filter.map((p) => {
+        {filter.map((product) => {
           return (
             <>
-              <div className="col-md-3 mb-4">
-                <div class="card h-100 text-center p-4 " key={p.id}>
+              <div key={product.id} className="col-md-3 mb-4"  >
+                <div class="card h-100 text-center p-4" >
                   <img
-                    src={p.image}
+                    src={product.image}
                     className="card-img-top"
-                    alt={p.title}
+                    alt={product.title}
                     height="250px"
                   />
-                  <div class="card-body">
+                  <div className="card-body">
                     <h5 class="card-title mb-0">
                       {" "}
-                      {p.title.substring(0, 12)}...{" "}
+                      {product.title.substring(0, 12)}...{" "}
                     </h5>
-                    <p class="card-text fw-bold">${p.price}</p>
-                    <a href="#" class="btn btn-outline-dark">
+                    <p class="card-text fw-bold">${product.price}</p>
+                    <NavLink to={`/Products/${product.id}`} className="btn btn-outline-dark">
                       Buy Now
-                    </a>
+                    </NavLink>
                   </div>
                 </div>
               </div>
