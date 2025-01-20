@@ -81,7 +81,9 @@ function Navbar({ userData, setUserData }) {
               </>
             ) : (
               <>
-                <NavLink
+        <div className="d-flex">
+        <div>
+            <NavLink
                   to="/cart"
                   className="btn btn-outline-warning ms-2 mx-2"
                 >
@@ -91,6 +93,7 @@ function Navbar({ userData, setUserData }) {
                   ></i>
                   Cart({cartItems.length})
                 </NavLink>
+            </div>
                 <div
                   className=""
                   onClick={deleteUserData}
@@ -102,6 +105,7 @@ function Navbar({ userData, setUserData }) {
                     <i class="fa fa-sign-out me-1" aria-hidden="true"></i>logout
                   </NavLink>
                 </div>
+        </div>
               </>
             )}
           </div>
